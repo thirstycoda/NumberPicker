@@ -2073,9 +2073,6 @@ public class NumberPicker extends LinearLayout {
      * @param notifyChange Whether to notify if the current value changed.
      */
     private void setValueInternal(int current, boolean notifyChange) {
-        if (mValue == current) {
-            return;
-        }
         // Wrap around the values if we go past the start or end
         if (mWrapSelectorWheel) {
             current = getWrappedSelectorIndex(current);
@@ -2083,6 +2080,11 @@ public class NumberPicker extends LinearLayout {
             current = Math.max(current, mMinValue);
             current = Math.min(current, mMaxValue);
         }
+
+        if (mValue == current) {
+            return;
+        }
+
         int previous = mValue;
         mValue = current;
         // If we're flinging, we'll update the text view at the end when it becomes visible
